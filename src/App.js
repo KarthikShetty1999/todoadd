@@ -1,25 +1,47 @@
-import logo from './logo.svg';
 import './App.css';
-
+import {useState} from "react";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const [todo, setTodo]= useState('');
+const [data, setData]=useState([]);
+function handleClick()
+{
+  if(todo === '')
+  {
+    alert("Empty")
+  }else{
+  const id = data.length + 1;
+  setData((prev) => [
+    ...prev,
+    {
+      id: id,
+      task: todo,
+      complete: false,
+    },
+  ]);
+  setTodo("");
+  console.log(data)
 }
 
+}
+  return (
+    <>
+      <h1>TODO</h1>
+      <input type="text" placeholder="TODO" value={todo} onChange={(e)=>setTodo(e.target.value)} />
+      <button onClick={()=> handleClick()}>Add</button>
+      <div>
+      {data.map((todo) => {
+              return (
+                <>
+               <div class="card"  >
+                <div class="card-body">
+                  <h5 class="card-title">{todo.id}{" "}{todo.task}</h5>
+                </div>
+              </div>
+                </>
+              );
+            })} 
+      </div>
+    </>
+  );
+}
 export default App;
